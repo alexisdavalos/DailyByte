@@ -1,18 +1,7 @@
 // This question is asked by Amazon. Given a string representing the sequence of moves a robot vacuum makes, return whether or not it will return to its original position. The string will only contain L, R, U, and D characters, representing left, right, up, and down respectively.
 
-// Ex: Given the following strings...
-
-// "LR", return true
-// "URURD", return false
-// "RUULLDRD", return true
-
 // O(n) time | O(n) space
 const robotVacuum = (string) => {
-  // create a hash table to count occurences
-  // make a dictionary of opposite robot moves
-  // for every instruction in the string add to hash table
-  // count every occurence of instruction
-  // check all occurences in hash table, if they are all even, its circular.
   let hashTable = {};
   let moves = {
     L: "R",
@@ -45,6 +34,8 @@ const robotVacuum = (string) => {
   // All keys had even counts
   return true;
 };
+
+// Ex: Given the following strings...
 
 console.log(robotVacuum("LR")); // "LR", return true
 console.log(robotVacuum("URURD")); // "URURD", return false
