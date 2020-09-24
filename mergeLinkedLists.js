@@ -1,38 +1,36 @@
 // Node Class
 class Node {
-  constructor(value) {
+  constructor(value = null, next = null) {
     this.value = value;
-    this.next = null;
+    this.next = next;
   }
 }
 // Linked List Class
 class LinkedList {
-  constructor(node = new Node("[Head]")) {
+  constructor(node = new Node("Head")) {
     this.head = node;
     this.tail = node;
   }
-  addTail(node) {
-    if (this.head === null) {
-      this.head = node;
-      this.tail = node;
-    }
-
-    if (this.tail !== null) {
-      node.next = null;
-      this.tail.next = node;
-      this.tail = node;
+  addTail(value) {
+    let newNode = new Node(value);
+    if (this.head === null && this.head == null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
     }
   }
-  printList(list) {
+  printList() {
     let string = "LinkedList: ";
-    let cur = list.head;
+    let cur = this.head;
     // Build out string from linked list
     while (cur !== null) {
       string += `${cur.value} -> `;
       cur = cur.next;
     }
     // Add null after reaching the end
-    string += `null`;
+    string += `null\n`;
     // Print List
     console.log(string);
   }
@@ -49,7 +47,7 @@ const mergeLinkedLists = (list1, list2) => {
   let l1 = list1.head;
   let l2 = list2.head;
 
-  // Create a new linked list to populate O(n) per list
+  // Create a new linked list to populate a new list at O(n + m)
   const ll = new LinkedList();
 
   // Create pointer to linked list head
@@ -94,37 +92,27 @@ const mergeLinkedLists = (list1, list2) => {
 
 let list1 = buildLinkedList([1, 2, 3]);
 let list2 = buildLinkedList([4, 5, 6]);
-printList(mergeLinkedLists(list1, list2));
+let merged = mergeLinkedLists(list1, list2);
+console.log("List 1: (1->2->3) + List 2: (4->5->6):");
+merged.printList();
 
 // list1 = 1->3->5, list2 = 2->4->6->null,
 // return 1->2->3->4->5->6->null
 
 list1 = buildLinkedList([1, 3, 5]);
 list2 = buildLinkedList([2, 4, 6]);
-printList(mergeLinkedLists(list1, list2));
+merged = mergeLinkedLists(list1, list2);
+console.log("List 1: (1->3->5) + List 2: (2->4->6):");
+merged.printList();
 
 // list1 = 4->4->7, list2 = 1->5->6->null
 // return 1->4->4->5->6->7->null
 
 list1 = buildLinkedList([4, 4, 7]);
 list2 = buildLinkedList([1, 5, 6]);
-printList(mergeLinkedLists(list1, list2));
-
-// Helper Methods
-
-function printList(list) {
-  let string = "LinkedList: ";
-  let cur = list.head;
-  // Build out string from linked list
-  while (cur !== null) {
-    string += `${cur.value} -> `;
-    cur = cur.next;
-  }
-  // Add null after reaching the end
-  string += `null`;
-  // Print List
-  console.log(string);
-}
+merged = mergeLinkedLists(list1, list2);
+console.log("List 1: (4->4->7) + List 2: (1->5->6):");
+merged.printList();
 
 // Create sorted linked lists with array of values
 function buildLinkedList(nodes) {
@@ -134,7 +122,7 @@ function buildLinkedList(nodes) {
   let linkedlist = new LinkedList(new Node(nodes[0]));
   // Loop through input range and populate remainder of list
   for (let i = 1; i < nodes.length; i++) {
-    linkedlist.addTail(new Node(nodes[i]));
+    linkedlist.addTail(nodes[i]);
   }
   return linkedlist;
 }
