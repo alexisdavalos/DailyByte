@@ -38,9 +38,6 @@ class LinkedList {
 
 // This question is asked by Apple. Given two sorted linked lists, // merge them together in ascending order and return a reference to the merged list
 
-//
-// Ex: Given the following lists...
-
 // Function to merged two sorted lists
 const mergeLinkedLists = (list1, list2) => {
   // Create pointers for list heads
