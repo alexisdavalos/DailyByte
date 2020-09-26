@@ -26,7 +26,7 @@ class LinkedList {
     let cur = this.head;
     // Build out string from linked list
     while (cur !== null) {
-      string += `${cur.value} -> `;
+      string += `(${cur.value}) -> `;
       cur = cur.next;
     }
     // Add null after reaching the end
@@ -39,46 +39,58 @@ class LinkedList {
 // This question is asked by Google. Given a linked list and a value, remove all nodes containing the provided value, and return the resulting list.
 
 const removeValue = (linkedlist, target) => {
-  // create pointer that starts at the head
-  // traverse the linked list
-  // when we reach a node with the target value as it's next, rewire the pointers
-  // skip the node and make the nodes next.next the next w/ a temp variable
+  // Print initial list state
+  console.log("Removing All Nodes With Value:", target);
+  linkedlist.printList();
 
-  cur = linkedlist.head;
-  while (cur !== null) {
-    console.log(cur.value);
-    if (cur.next.value === target) {
-      // rewire pointers
-      let newNext = cur.next.next;
-      let oldNext = cur.next;
-      oldNext.next = null;
-      cur.next = newNext;
-    }
-    cur = cur.next;
+  // Check if value is head
+  if (linkedlist.head.value === target) {
+    let newHead = linkedlist.head.next;
+    linkedlist.head = newHead;
   }
+
+  // Set up initial pointers
+  let cur = linkedlist.head;
+  let prev = null;
+
+  while (cur !== null) {
+    // Reached target value
+    if (cur.value === target) {
+      // Grab the next node
+      let newNext = cur.next;
+      // Backtrack cur to prev
+      cur = prev;
+      // Skip over cur node
+      cur.next = newNext;
+    } else {
+      // Walk prev and cur forward
+      prev = cur;
+      cur = cur.next;
+    }
+  }
+
+  // Print List After Nodes Removed
+  console.log("After Removal:");
+  linkedlist.printList();
+
+  return linkedlist;
 };
 
 // Ex: Given the following linked lists and values...
 
 // 1->2->3->null, value = 3, return 1->2->null
 let list = buildLinkedList([1, 2, 3]);
-let remove = 3;
-console.log("Removing All Nodes With Value:", remove);
-list.printList();
-removeValue(list, remove);
-console.log("After Removal:");
-list.printList();
+removeValue(list, 3);
 
-//ToDo:
 // 8->1->1->4->12->null, value = 1, return 8->4->12->null
-// list = buildLinkedList([8, 1, 1, 4, 12]);
-// remove = 1;
-// console.log("Removing All Nodes With Value:", remove);
-// list.printList();
-// removeValue(list, remove);
-// console.log("After Removal:");
-// list.printList();
+list = buildLinkedList([8, 1, 1, 4, 12]);
+removeValue(list, 1);
+
 // 7->12->2->9->null, value = 7, return 12->2->9->null
+list = buildLinkedList([7, 12, 7, 2, 9]);
+removeValue(list, 7);
+
+// ------------ Linked List Builder Function -------------- //
 
 // Create linked lists with array of values
 function buildLinkedList(nodes) {
