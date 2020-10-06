@@ -10,7 +10,7 @@ const removeAdjacentDuplicates = (string) => {
     if (hasDuplicates(newString)) {
       newString = sliceDuplicates(newString);
     } else {
-      removed = true;
+      return newString.join("");
     }
   }
 
@@ -30,11 +30,9 @@ const removeAdjacentDuplicates = (string) => {
     }
     return false;
   }
-
-  return newString.join("");
 };
 
 // Ex: Given the following strings...
-console.log(removeAdjacentDuplicates("abccba")); // s = "abccba", return ""
-console.log(removeAdjacentDuplicates("foobar")); // s = "foobar", return "fbar"
-console.log(removeAdjacentDuplicates("abccbefggfe")); // s = "abccbefggfe", return "a"
+console.log(removeAdjacentDuplicates("cabccba")); // return "c"
+console.log(removeAdjacentDuplicates("foobar")); // return "fbar"
+console.log(removeAdjacentDuplicates("abccbefggfe")); // return "a"
